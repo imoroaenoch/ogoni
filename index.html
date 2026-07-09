@@ -71,8 +71,16 @@
       right: 0;
       z-index: 60;
       height: 2.5rem;
+      background: #fff;
+      border-bottom: 1px solid #E5E7EB;
+    }
+    .top-bar-inner {
+      max-width: 80rem; /* max-w-7xl — same content width as navbar */
+      margin: 0 auto;
+      height: 100%;
       display: flex;
-      overflow: hidden;
+      align-items: stretch;
+      padding: 0 1rem; /* px-4 — same side margins as navbar */
     }
     .top-bar-left,
     .top-bar-right {
@@ -81,29 +89,24 @@
       align-items: center;
       height: 100%;
       text-decoration: none;
-      transition: filter 0.2s ease, opacity 0.2s ease;
+      transition: background 0.2s ease, color 0.2s ease;
       min-width: 0;
     }
-    .top-bar-left:hover,
-    .top-bar-right:hover { filter: brightness(1.06); }
     .top-bar-left {
-      background: #1a3a2a;
-      color: #86efac;
+      background: #166534; /* brand green */
+      color: #fff;
       justify-content: flex-start;
-      padding-left: 1rem;
-      padding-right: 2.5rem;
-      clip-path: polygon(0 0, calc(100% - 1.75rem) 0, 100% 100%, 0 100%);
-      z-index: 2;
+      padding: 0 1rem;
     }
+    .top-bar-left:hover { background: #14532D; }
     .top-bar-right {
-      background: #bbf7d0;
-      color: #14532D;
+      background: #fff;
+      color: #166534;
       justify-content: flex-end;
-      padding-right: 1rem;
-      padding-left: 2.5rem;
-      margin-left: -1.75rem;
-      z-index: 1;
+      padding: 0 1rem;
+      border-left: 1px solid #E5E7EB; /* straight vertical division */
     }
+    .top-bar-right:hover { background: #F7F8F6; }
     .top-bar-left span,
     .top-bar-right span {
       font-size: 0.8125rem;
@@ -118,14 +121,16 @@
     }
     @media (min-width: 640px) {
       .top-bar { height: 2.75rem; }
-      .top-bar-left { padding-left: 1.5rem; padding-right: 3rem; clip-path: polygon(0 0, calc(100% - 2.25rem) 0, 100% 100%, 0 100%); }
-      .top-bar-right { padding-right: 1.5rem; padding-left: 3rem; margin-left: -2.25rem; }
+      .top-bar-inner { padding: 0 1.5rem; } /* sm:px-6 */
+      .top-bar-left,
+      .top-bar-right { padding: 0 1.25rem; }
       .top-bar-left span,
       .top-bar-right span { font-size: 0.875rem; }
     }
     @media (min-width: 1024px) {
-      .top-bar-left { padding-left: 2rem; }
-      .top-bar-right { padding-right: 2rem; }
+      .top-bar-inner { padding: 0 2rem; } /* lg:px-8 */
+      .top-bar-left,
+      .top-bar-right { padding: 0 1.5rem; }
     }
     /* Main navbar sits below the top bar */
     #navbar { top: 2.5rem; }
@@ -136,18 +141,20 @@
 
 <!-- ==================== TOP UTILITY BAR ==================== -->
 <div id="topBar" class="top-bar" role="banner" aria-label="Account actions">
-  <a href="#" class="top-bar-left gap-2 sm:gap-2.5" title="Login to your account">
-    <svg class="top-bar-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
-    </svg>
-    <span>Login</span>
-  </a>
-  <a href="#" class="top-bar-right gap-2 sm:gap-2.5" title="Onboard now">
-    <span>Onboard Now</span>
-    <svg class="top-bar-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.25" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-    </svg>
-  </a>
+  <div class="top-bar-inner">
+    <a href="#" class="top-bar-left gap-2 sm:gap-2.5" title="Login to your account">
+      <svg class="top-bar-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
+      </svg>
+      <span>Login</span>
+    </a>
+    <a href="#" class="top-bar-right gap-2 sm:gap-2.5" title="Onboard now">
+      <span>Onboard Now</span>
+      <svg class="top-bar-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.25" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+      </svg>
+    </a>
+  </div>
 </div>
 
 <!-- ==================== NAVBAR ==================== -->
