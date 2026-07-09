@@ -62,12 +62,96 @@
     .icon-box { width: 3rem; height: 3rem; border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .divider-line { height: 1px; background: linear-gradient(to right, transparent, #E5E7EB, transparent); }
     .gradient-text { background: linear-gradient(135deg, #14532D, #166534); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    /* Top utility bar (above main navbar) */
+    .top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 60;
+      height: 2.5rem;
+      display: flex;
+      overflow: hidden;
+    }
+    .top-bar-left,
+    .top-bar-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      height: 100%;
+      text-decoration: none;
+      transition: filter 0.2s ease, opacity 0.2s ease;
+      min-width: 0;
+    }
+    .top-bar-left:hover,
+    .top-bar-right:hover { filter: brightness(1.06); }
+    .top-bar-left {
+      background: #1a3a2a;
+      color: #86efac;
+      justify-content: flex-start;
+      padding-left: 1rem;
+      padding-right: 2.5rem;
+      clip-path: polygon(0 0, calc(100% - 1.75rem) 0, 100% 100%, 0 100%);
+      z-index: 2;
+    }
+    .top-bar-right {
+      background: #bbf7d0;
+      color: #14532D;
+      justify-content: flex-end;
+      padding-right: 1rem;
+      padding-left: 2.5rem;
+      margin-left: -1.75rem;
+      z-index: 1;
+    }
+    .top-bar-left span,
+    .top-bar-right span {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+    }
+    .top-bar-icon {
+      width: 1rem;
+      height: 1rem;
+      flex-shrink: 0;
+    }
+    @media (min-width: 640px) {
+      .top-bar { height: 2.75rem; }
+      .top-bar-left { padding-left: 1.5rem; padding-right: 3rem; clip-path: polygon(0 0, calc(100% - 2.25rem) 0, 100% 100%, 0 100%); }
+      .top-bar-right { padding-right: 1.5rem; padding-left: 3rem; margin-left: -2.25rem; }
+      .top-bar-left span,
+      .top-bar-right span { font-size: 0.875rem; }
+    }
+    @media (min-width: 1024px) {
+      .top-bar-left { padding-left: 2rem; }
+      .top-bar-right { padding-right: 2rem; }
+    }
+    /* Main navbar sits below the top bar */
+    #navbar { top: 2.5rem; }
+    @media (min-width: 640px) { #navbar { top: 2.75rem; } }
   </style>
 </head>
 <body>
 
+<!-- ==================== TOP UTILITY BAR ==================== -->
+<div id="topBar" class="top-bar" role="banner" aria-label="Account actions">
+  <a href="#" class="top-bar-left gap-2 sm:gap-2.5" title="Login to your account">
+    <svg class="top-bar-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
+    </svg>
+    <span>Login</span>
+  </a>
+  <a href="#" class="top-bar-right gap-2 sm:gap-2.5" title="Onboard now">
+    <span>Onboard Now</span>
+    <svg class="top-bar-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.25" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+    </svg>
+  </a>
+</div>
+
 <!-- ==================== NAVBAR ==================== -->
-<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-[#E5E7EB] transition-shadow duration-300">
+<nav id="navbar" class="fixed left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-[#E5E7EB] transition-shadow duration-300">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16 lg:h-[4.5rem]">
       <a href="#" onclick="navigateTo('home')" class="flex items-center gap-2.5 shrink-0">
@@ -89,11 +173,8 @@
         <a href="#" onclick="navigateTo('impact')" class="nav-link text-sm text-[#6B7280] hover:text-[#111827] transition">Impact</a>
         <a href="#" onclick="navigateTo('contact')" class="nav-link text-sm text-[#6B7280] hover:text-[#111827] transition">Contact</a>
       </div>
-      <div class="hidden lg:flex items-center gap-3">
-        <a href="#" class="text-sm text-[#6B7280] hover:text-[#111827] font-medium transition">Login</a>
-        <a href="#" class="btn-primary text-sm !py-2.5 !px-5">Onboard Now <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></a>
-      </div>
-      <button id="menuToggle" onclick="toggleMobileMenu()" class="lg:hidden p-2 text-[#111827] rounded-lg hover:bg-[#F7F8F6] transition">
+      <!-- Login / Onboard live in the top utility bar -->
+      <button id="menuToggle" onclick="toggleMobileMenu()" class="lg:hidden p-2 text-[#111827] rounded-lg hover:bg-[#F7F8F6] transition" aria-label="Open menu">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
     </div>
@@ -136,7 +217,8 @@
 </div>
 
 <!-- ==================== PAGES ==================== -->
-<main class="pt-16 lg:pt-[4.5rem]">
+<!-- top-bar (2.5/2.75rem) + navbar (4rem / 4.5rem) -->
+<main class="pt-[6.5rem] sm:pt-[6.75rem] lg:pt-[7.25rem]">
 
 <!-- ==================== HOME PAGE ==================== -->
 <div id="page-home" class="page active">
